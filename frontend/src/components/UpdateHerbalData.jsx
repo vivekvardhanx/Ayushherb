@@ -1,157 +1,180 @@
-import React from "react";
-import { doc, setDoc } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { firestore } from "../services/firebase";
 
-const herbalData = [
-    {
-      disease: "cough",
-      recommendations: [
-        {
-          herb: "Tulsi",
-          usedFor: "Cough, cold, and respiratory relief",
-          preparation: "Boil leaves in water and drink as tea",
-          dosage: "Twice a day after meals",
-          caution: "Avoid during pregnancy in high doses"
-        },
-        {
-          herb: "Ginger",
-          usedFor: "Throat irritation, congestion",
-          preparation: "Crush and mix with honey",
-          dosage: "Once a day"
-        }
-      ]
-    },
-    {
-      disease: "fever",
-      recommendations: [
-        {
-          herb: "Neem",
-          usedFor: "Reduce body temperature",
-          preparation: "Boil leaves and drink",
-          dosage: "Twice daily"
-        },
-        {
-          herb: "Giloy",
-          usedFor: "Boosts immunity and helps with fever",
-          preparation: "Boil stem and drink water",
-          dosage: "Once in morning"
-        }
-      ]
-    },
-    {
-      disease: "cold",
-      recommendations: [
-        {
-          herb: "Peppermint",
-          usedFor: "Nasal congestion",
-          preparation: "Use leaves in steam inhalation",
-          dosage: "Before bed"
-        },
-        {
-          herb: "Clove",
-          usedFor: "Throat pain",
-          preparation: "Suck clove or use clove oil",
-          dosage: "2-3 times a day"
-        }
-      ]
-    },
-    {
-      disease: "headache",
-      recommendations: [
-        {
-          herb: "Lavender",
-          usedFor: "Stress-induced headaches, migraines",
-          preparation: "Inhale essential oil or use in a diffuser",
-          dosage: "Inhale 3-4 times a day"
-        },
-        {
-          herb: "Peppermint",
-          usedFor: "Relieves tension headaches",
-          preparation: "Apply diluted oil to temples",
-          dosage: "Apply 2-3 times a day"
-        }
-      ]
-    },
-    {
-      disease: "insomnia",
-      recommendations: [
-        {
-          herb: "Chamomile",
-          usedFor: "Sleep aid, relaxation",
-          preparation: "Drink chamomile tea before bed",
-          dosage: "Once before bedtime"
-        },
-        {
-          herb: "Valerian root",
-          usedFor: "Promotes deep sleep",
-          preparation: "Take valerian root in capsule or tea form",
-          dosage: "30 minutes before bedtime"
-        }
-      ]
-    },
-    {
-      disease: "digestive issues",
-      recommendations: [
-        {
-          herb: "Fennel",
-          usedFor: "Indigestion, bloating, gas",
-          preparation: "Chew fennel seeds or make fennel tea",
-          dosage: "Twice a day after meals"
-        },
-        {
-          herb: "Aloe Vera",
-          usedFor: "Soothing and improving digestion",
-          preparation: "Drink aloe vera juice or gel",
-          dosage: "Once a day"
-        }
-      ]
-    },
-    {
-      disease: "skin irritation",
-      recommendations: [
-        {
-          herb: "Aloe Vera",
-          usedFor: "Skin irritation, burns, and wounds",
-          preparation: "Apply fresh aloe vera gel to affected area",
-          dosage: "As needed"
-        },
-        {
-          herb: "Turmeric",
-          usedFor: "Reduces inflammation and redness",
-          preparation: "Make a paste with water and apply to skin",
-          dosage: "Once a day"
-        }
-      ]
-    }
-  ];
-  
+function UpdateHerbalData() {
+  const [disease, setDisease] = useState("");
+  const [recommendations, setRecommendations] = useState([]);
+  const [allDiseases, setAllDiseases] = useState([]);
+  const [selectedDisease, setSelectedDisease] = useState(null);
+  const [form, setForm] = useState({ herb: "", usedFor: "", preparation: "", dosage: "", caution: "" });
+  const [loading, setLoading] = useState(false);
 
-function UploadHerbalData() {
-  const uploadData = async () => {
-    try {
-      for (const item of herbalData) {
-        const docRef = doc(firestore, "herbalRecommendations", item.disease.toLowerCase());
-        await setDoc(docRef, item);
-        console.log(`Uploaded: ${item.disease}`);
-      }
-      alert("✅ All herbal data uploaded successfully!");
-    } catch (error) {
-      console.error("Error uploading data:", error);
-      alert("❌ Failed to upload some data. Check console.");
+  // Fetch all diseases for auto-suggest
+  useEffect(() => {
+    const fetchDiseases = async () => {
+      const snapshot = await getDocs(collection(firestore, "herbalRecommendations"));
+      const diseases = snapshot.docs.map((doc) => doc.id);
+      setAllDiseases(diseases);
+    };
+    fetchDiseases();
+  }, []);
+
+  // Fetch recommendations for selected disease
+  const fetchRecommendations = async (diseaseName) => {
+    setLoading(true);
+    const cleanName = diseaseName.toLowerCase().trim();
+    const docRef = doc(firestore, "herbalRecommendations", cleanName);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setRecommendations(docSnap.data().recommendations || []);
+      setSelectedDisease(cleanName);
+    } else {
+      setRecommendations([]);
+      setSelectedDisease(cleanName);
     }
+    setLoading(false);
+  };
+
+  // Handle disease input change and auto-suggest
+  const handleDiseaseChange = (e) => {
+    setDisease(e.target.value);
+    setSelectedDisease(null);
+    setRecommendations([]);
+  };
+
+  // Handle form input change
+  const handleFormChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // Add or update recommendation
+  const handleAddRecommendation = async (e) => {
+    e.preventDefault();
+    if (!disease) return alert("Please enter a disease name.");
+    const cleanName = disease.toLowerCase().trim();
+    const newRecs = [...recommendations, form];
+    const docRef = doc(firestore, "herbalRecommendations", cleanName);
+    await setDoc(docRef, { disease: cleanName, recommendations: newRecs });
+    setRecommendations(newRecs);
+    setForm({ herb: "", usedFor: "", preparation: "", dosage: "", caution: "" });
+    setSelectedDisease(cleanName);
+    if (!allDiseases.includes(cleanName)) setAllDiseases([...allDiseases, cleanName]);
+    alert("Recommendation added/updated!");
+  };
+
+  // Select a disease from the list
+  const handleSelectDisease = (diseaseName) => {
+    const cleanName = diseaseName.toLowerCase().trim();
+    setDisease(cleanName);
+    fetchRecommendations(cleanName);
+  };
+
+  // Remove a recommendation
+  const handleRemoveRecommendation = async (index) => {
+    const cleanName = disease.toLowerCase().trim();
+    const newRecs = recommendations.filter((_, i) => i !== index);
+    const docRef = doc(firestore, "herbalRecommendations", cleanName);
+    await setDoc(docRef, { disease: cleanName, recommendations: newRecs });
+    setRecommendations(newRecs);
   };
 
   return (
-    <div className="p-6 text-center">
-      <h2 className="text-2xl font-bold mb-4">Upload Herbal Data</h2>
-      <button
-        onClick={uploadData}
-        className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full text-lg"
-      >
-        Upload Herbal Data to Firestore
-      </button>
+    <div className="p-6 max-w-2xl mx-auto">
+      <h2 className="text-2xl font-bold mb-4 text-center">Manage Herbal Recommendations</h2>
+      <div className="mb-4">
+        <input
+          className="border p-2 rounded w-full"
+          placeholder="Enter or select a disease (e.g. cough, fever)"
+          value={disease}
+          onChange={handleDiseaseChange}
+          list="disease-list"
+        />
+        <datalist id="disease-list">
+          {allDiseases.map((d) => (
+            <option key={d} value={d} />
+          ))}
+        </datalist>
+        <button
+          className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={() => handleSelectDisease(disease)}
+          disabled={!disease}
+        >
+          Load Recommendations
+        </button>
+      </div>
+      {loading && <div>Loading...</div>}
+      {selectedDisease && (
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-2">Current Recommendations for <span className="text-green-700">{selectedDisease}</span>:</h3>
+          {recommendations.length === 0 && <div className="text-gray-500">No recommendations yet.</div>}
+          <ul className="space-y-2">
+            {recommendations.map((rec, idx) => (
+              <li key={idx} className="bg-green-50 p-3 rounded flex flex-col md:flex-row md:items-center md:justify-between">
+                <span>
+                  <b>{rec.herb}</b> - {rec.usedFor} | <i>{rec.preparation}</i> | <b>Dosage:</b> {rec.dosage} {rec.caution && <span className="text-red-600">| Caution: {rec.caution}</span>}
+                </span>
+                <button
+                  className="text-red-600 hover:underline mt-2 md:mt-0"
+                  onClick={() => handleRemoveRecommendation(idx)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <form onSubmit={handleAddRecommendation} className="space-y-3 bg-white p-4 rounded shadow">
+        <h4 className="font-semibold">Add/Edit Recommendation</h4>
+        <input
+          className="border p-2 rounded w-full"
+          name="herb"
+          placeholder="Herb Name"
+          value={form.herb}
+          onChange={handleFormChange}
+          required
+        />
+        <input
+          className="border p-2 rounded w-full"
+          name="usedFor"
+          placeholder="Used For"
+          value={form.usedFor}
+          onChange={handleFormChange}
+          required
+        />
+        <input
+          className="border p-2 rounded w-full"
+          name="preparation"
+          placeholder="Preparation"
+          value={form.preparation}
+          onChange={handleFormChange}
+          required
+        />
+        <input
+          className="border p-2 rounded w-full"
+          name="dosage"
+          placeholder="Dosage"
+          value={form.dosage}
+          onChange={handleFormChange}
+          required
+        />
+        <input
+          className="border p-2 rounded w-full"
+          name="caution"
+          placeholder="Caution (optional)"
+          value={form.caution}
+          onChange={handleFormChange}
+        />
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-6 py-2 rounded w-full mt-2"
+        >
+          Add/Update Recommendation
+        </button>
+      </form>
     </div>
   );
 }
 
-export default UploadHerbalData;
+export default UpdateHerbalData;

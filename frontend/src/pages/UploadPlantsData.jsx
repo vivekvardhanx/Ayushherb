@@ -14,7 +14,7 @@ const plantData = [
     imageSrc: "/images/tulsi.png",
     audioFile: "/audio/tulsi.mp3",
     youtubeUrl: "https://www.youtube.com/embed/8Oxw4BgqQ2Y",
-    sketchfabModelUrl: "https://sketchfab.com/models/3272493ccf6c4ede895f259905ef1db8/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/3272493ccf6c4ede895f259905ef1db8/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/tulsi2.png",
       "/images/tulsi3.png",
@@ -42,7 +42,7 @@ const plantData = [
     imageSrc: "/images/aloevera.png",
     audioFile: "/audio/aloe vera.mp3",
     youtubeUrl: "https://www.youtube.com/embed/8Oxw4BgqQ2Y",
-    sketchfabModelUrl: "https://sketchfab.com/models/66c6699e50ab4863989777f920a981dd/embed?autospin=1&autostart=1&ui_hint=2&ui_infos=0&ui_controls=1",
+    sketchfabModelUrl: "https://sketchfab.com/models/66c6699e50ab4863989777f920a981dd/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/aloevera2.png",
       "/images/aloevera3.png",
@@ -70,7 +70,7 @@ const plantData = [
     imageSrc: "/images/ashwagandha.jpg",
     audioFile: "/audio/ashwaganda.mp3",
     youtubeUrl: "https://www.youtube.com/embed/OE14JsyuEII",
-    sketchfabModelUrl: "https://sketchfab.com/models/88b1bf03a6254dc2b56cec4dce3f22f1/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/88b1bf03a6254dc2b56cec4dce3f22f1/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/ashwagandha2.png",
       "/images/ashwagandha3.png",
@@ -98,7 +98,7 @@ const plantData = [
     imageSrc: "/images/cactus.png",
     audioFile: "/audio/cactus.mp3",
     youtubeUrl: "https://www.youtube.com/embed/Uds_rPbFkpU",
-    sketchfabModelUrl: "https://sketchfab.com/models/01d773057954447a9abb7ae0c6c052af/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/01d773057954447a9abb7ae0c6c052af/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/cactus2.png",
       "/images/cactus3.png",
@@ -126,7 +126,7 @@ const plantData = [
     imageSrc: "/images/dandelion2.png",
     audioFile: "/audio/dandelion.mp3",
     youtubeUrl: "https://www.youtube.com/embed/8Oxw4BgqQ2Y",
-    sketchfabModelUrl: "https://sketchfab.com/models/8a93f08947a4499b9ed19d2d47323242/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/8a93f08947a4499b9ed19d2d47323242/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/dandelion2.png",
       "/images/dandelion3.png",
@@ -154,7 +154,7 @@ const plantData = [
     imageSrc: "/images/eucalyptus.png",
     audioFile: "/audio/eucalyptus.mp3",
     youtubeUrl: "https://www.youtube.com/embed/4W44xiXvUAI",
-    sketchfabModelUrl: "https://sketchfab.com/models/d021e7909df44e03b976c1374bfab9dc/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/d021e7909df44e03b976c1374bfab9dc/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/eucalyptus2.png",
       "/images/eucalyptus3.png",
@@ -182,7 +182,7 @@ const plantData = [
     imageSrc: "/images/ginger.png",
     audioFile: "/audio/ginger.mp3",
     youtubeUrl: "https://www.youtube.com/embed/-mUeNy0rweM",
-    sketchfabModelUrl: "https://sketchfab.com/models/de8da99c3c1742708cd4ea858750b881/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/de8da99c3c1742708cd4ea858750b881/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/ginger2.png",
       "/images/ginger3.png",
@@ -210,7 +210,7 @@ const plantData = [
     imageSrc: "/images/hibiscus.png",
     audioFile: "/audio/hibiscus.mp3",
     youtubeUrl: "https://www.youtube.com/embed/kSxRXhcm1Hw",
-    sketchfabModelUrl: "https://sketchfab.com/models/8992b6b94b094a069930104a32d5e9f5/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/8992b6b94b094a069930104a32d5e9f5/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/hibiscus2.png",
       "/images/hibiscus3.png",
@@ -266,7 +266,7 @@ const plantData = [
     imageSrc: "/images/neem.png",
     audioFile: "/audio/neem.mp3",
     youtubeUrl: "https://www.youtube.com/embed/8Oxw4BgqQ2Y",
-    sketchfabModelUrl: "https://sketchfab.com/models/03edef8009d942d3a3db6fa64cecbe56/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/03edef8009d942d3a3db6fa64cecbe56/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/neem2.png",
       "/images/neem3.png",
@@ -294,7 +294,7 @@ const plantData = [
     imageSrc: "/images/rosemary.png",
     audioFile: "/audio/rosemary.mp3",
     youtubeUrl: "https://www.youtube.com/embed/GrnrDsGao20",
-    sketchfabModelUrl: "https://sketchfab.com/models/d5c0f249ff8a4d13840abf681bb92d29/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/d5c0f249ff8a4d13840abf681bb92d29/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/rosemary2.png",
       "/images/rosemary3.png",
@@ -322,7 +322,7 @@ const plantData = [
     imageSrc: "/images/sage.png",
     audioFile: "/audio/sage.mp3",
     youtubeUrl: "https://www.youtube.com/embed/2QdY1QkQeX4",
-    sketchfabModelUrl: "https://sketchfab.com/models/f41f028de9ca4be2b2e85df0820508ae/embed?ui_hint=2",
+    sketchfabModelUrl: "https://sketchfab.com/models/f41f028de9ca4be2b2e85df0820508ae/embed?autospin=1&autostart=1",
     multimedia: [
       "/images/sage2.png",
       "/images/sage3.png",
