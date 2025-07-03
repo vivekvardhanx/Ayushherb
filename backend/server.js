@@ -2,6 +2,7 @@ import express from "express";
 import admin from "firebase-admin";
 import cors from "cors";
 import dotenv from "dotenv";
+import axios from "axios";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -71,6 +72,26 @@ app.get("/api/users", async (req, res) => {
 });
 
 // Fetch active users (logged in within the last 5 minutes)
+
+// News API proxy endpoint
+app.get("/api/news", async (req, res) => {
+  try {
+    const apiKey = process.env.NEWS_API_KEY;
+    const response = await axios.get(
+      `https://newsapi.org/v2/everything`, {
+        params: {
+          q: "ayurveda OR herb",
+          apiKey,
+          pageSize: 5,
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching news articles:", error.message);
+    res.status(500).json({ error: "Failed to fetch news articles" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

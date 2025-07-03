@@ -26,8 +26,6 @@ const Dashboard = () => {
   const [loadingNews, setLoadingNews] = useState(true); // Loading state for news
   const [errorNews, setErrorNews] = useState(null); // Error state for news
 
-  const apiKey = "58bc5f44b1b04122864e443678d1b781"; // Replace with your Google News API Key
-
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (currentUser) {
@@ -60,7 +58,7 @@ const Dashboard = () => {
     setErrorNews(null); // Reset error state
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/everything?q=ayurveda OR herb&apiKey=${apiKey}&pageSize=5` // Updated query for filtering
+        "/api/news"
       );
       if (response.data.articles) {
         setNewsArticles(response.data.articles); // Set the filtered articles to state
