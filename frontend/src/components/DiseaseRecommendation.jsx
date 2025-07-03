@@ -118,12 +118,13 @@ function DiseaseRecommendation() {
             Trending Conditions:
           </h4>
           <div className="flex flex-wrap gap-3 justify-center">
-            {["Cold", "Cough", "Fever", "Insomnia", "Acidity"].map(
+            {["Cold", "Headache", "Cough", "Fever", "Insomnia", "Acidity"].map(
               (condition) => (
                 <button
                   key={condition}
-                  onClick={() => handleSuggestionClick(condition)}
+                  onClick={() => handleSuggestionClick(condition.toLowerCase().trim())}
                   className="bg-green-200 hover:bg-green-300 text-green-800 py-2 px-4 rounded-full transition font-medium"
+                  type="button"
                 >
                   {condition}
                 </button>
