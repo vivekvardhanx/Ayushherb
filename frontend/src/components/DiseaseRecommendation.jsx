@@ -118,7 +118,7 @@ function DiseaseRecommendation() {
             Trending Conditions:
           </h4>
           <div className="flex flex-wrap gap-3 justify-center">
-            {["Cold", "Headache", "Cough", "Fever", "Insomnia", "Acidity"].map(
+            {["Cold", "Headache", "Cough", "Fever", "Insomnia", "Digestive Issues", "Skin Irritation"].map(
               (condition) => (
                 <button
                   key={condition}
