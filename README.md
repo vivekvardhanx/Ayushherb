@@ -6,8 +6,6 @@
 
 **Herb Sphere** is an interactive **Virtual Herbal Garden** designed to help users explore a variety of herbs, their uses, and benefits. This project combines **education**, **technology**, and **sustainability** to create an engaging platform where users can learn about herbal plants and their applications in daily life.
 
-Visit the live platform: [Herb Sphere](https://herb-sphere.vercel.app/)  
-Repository: [Herb Sphere GitHub](https://github.com/Shaurya01836/herb-sphere)
 
 ---
 
@@ -26,12 +24,9 @@ Repository: [Herb Sphere GitHub](https://github.com/Shaurya01836/herb-sphere)
 
 The project leverages modern web development technologies:
 
-- **Frontend**: React.js (with Tailwind CSS for styling)  
-- **Backend**: CosmoCloud
-- **Database**: MongoDB  
+- **Frontend**: React.js (with Tailwind CSS for styling)   
 - **3D Models**: Integration with Sketchfab for 3D visualization  
 - **Authentication**: Firebase Authentication for secure user management  
-- **API**: Cosmocloud-powered API for herb data
 - **Hosting**: Vercel (Frontend)
 
 ---
@@ -78,7 +73,7 @@ We welcome contributions to enhance this project. Here's how you can contribute:
 
 For questions or feedback:  
 
-- **Developer**: [Shaurya01836](https://github.com/Shaurya01836)  
+- **Developer**: vivekvardhanx
  
 
 ---
