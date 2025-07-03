@@ -1,10 +1,10 @@
 // src/components/Register.jsx
 import React, { useState } from "react";
-import { auth } from "../services/firebase"; // Ensure this is correct
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
-import { useNavigate, Link } from "react-router-dom"; // Import Link from react-router-dom
+import { auth } from "../services/firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "./Navbar";
+
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,22 +19,12 @@ const Register = () => {
         email,
         password
       );
-      const user = userCredential.user;
-
-      // Save user data to Realtime Database
-      const db = getDatabase();
-      await set(ref(db, "users/" + user.uid), {
-        name: name,
-        email: email,
-      });
-
-      // Show success alert
+      await updateProfile(userCredential.user, { displayName: name });
       window.alert(
         "Registration successful! You will be redirected to the dashboard."
       );
-      navigate("/dashboard"); // Redirect to dashboard after successful registration
+      navigate("/dashboard");
     } catch (error) {
-      // Show error alert
       window.alert(`Error registering user: ${error.message}`);
       console.error("Error registering user:", error.message);
     }
