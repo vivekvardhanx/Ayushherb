@@ -22,7 +22,7 @@ function DiseaseRecommendation() {
           collection(firestore, "herbalRecommendations")
         );
         const diseases = snapshot.docs
-          .map((doc) => doc.data().disease?.toLowerCase().trim())
+          .map((doc) => doc.data().disease?.toLowerCase())
           .filter(Boolean);
         setAllDiseases(diseases);
       } catch (err) {
@@ -39,7 +39,7 @@ function DiseaseRecommendation() {
 
     if (value.length > 1) {
       const filtered = allDiseases.filter((disease) =>
-        disease.toLowerCase().includes(value.toLowerCase().trim())
+        disease.toLowerCase().includes(value.toLowerCase())
       );
       setSuggestions(filtered.slice(0, 5));
     } else {
@@ -58,10 +58,9 @@ function DiseaseRecommendation() {
     setRecommendations([]);
 
     try {
-      const diseaseQuery = query.toLowerCase().trim();
       const q = firestoreQuery(
         collection(firestore, "herbalRecommendations"),
-        where("disease", "==", diseaseQuery)
+        where("disease", "==", query.toLowerCase())
       );
       const querySnapshot = await getDocs(q);
 
@@ -123,9 +122,8 @@ function DiseaseRecommendation() {
               (condition) => (
                 <button
                   key={condition}
-                  onClick={() => handleSuggestionClick(condition.toLowerCase().trim())}
+                  onClick={() => handleSuggestionClick(condition)}
                   className="bg-green-200 hover:bg-green-300 text-green-800 py-2 px-4 rounded-full transition font-medium"
-                  type="button"
                 >
                   {condition}
                 </button>
