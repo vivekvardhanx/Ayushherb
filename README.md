@@ -34,8 +34,7 @@ The project leverages modern web development technologies:
 
 ## Screenshots 🌼
 
-_Showcase your project visually by adding screenshots here!_
-
+adding screenshots here!_
 ---
 
 ## Contribution Guide 🤝
