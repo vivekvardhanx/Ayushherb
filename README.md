@@ -72,7 +72,7 @@ We welcome contributions to enhance this project. Here's how you can contribute:
 
 For questions or feedback:  
 
-- **Developer**: vivekvardhanx
+- **Developer**: vivekvardhanx , nikhil , yashwanth
  
 
 ---
